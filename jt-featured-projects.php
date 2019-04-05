@@ -79,7 +79,7 @@ function jt_featured_projects() {
 		"hierarchical" => false,
 		"rewrite" => array( "slug" => "projects", "with_front" => true ),
 		"query_var" => true,
-		"supports" => array( "title", "editor", "thumbnail", "excerpt", "page-attributes" ),
+		"supports" => array( "title", "editor", "author", "thumbnail", "excerpt", "page-attributes" ),
 		"taxonomies" => array( "category", "post_tag" ),
 	);
 
