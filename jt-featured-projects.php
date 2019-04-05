@@ -77,7 +77,7 @@ function jt_featured_projects() {
 		"capability_type" => "post",
 		"map_meta_cap" => true,
 		"hierarchical" => false,
-		"rewrite" => array( "slug" => "featured-projects", "with_front" => true ),
+		"rewrite" => array( "slug" => "projects", "with_front" => true ),
 		"query_var" => true,
 		"supports" => array( "title", "editor", "thumbnail", "excerpt", "page-attributes" ),
 		"taxonomies" => array( "category", "post_tag" ),
@@ -95,10 +95,10 @@ function jt_featured_projects() {
 			'fields' => array(
 				array(
 					'key' => 'field_5b78c76066f15',
-					'label' => 'Project Title',
-					'name' => 'project_title',
+					'label' => 'Project Client',
+					'name' => 'project_client',
 					'type' => 'text',
-					'instructions' => 'Add project title',
+					'instructions' => 'Add project client',
 					'required' => 1,
 					'conditional_logic' => 0,
 					'wrapper' => array(
@@ -171,7 +171,7 @@ function jt_featured_projects() {
 					'label' => 'Project Featured',
 					'name' => 'project_is_featured',
 					'type' => 'true_false',
-					'instructions' => 'Select True if you want this project to be featured on the homepage?',
+					'instructions' => 'Select YES if you want this project to be featured on the homepage?',
 					'required' => 0,
 					'conditional_logic' => 0,
 					'wrapper' => array(
@@ -179,7 +179,7 @@ function jt_featured_projects() {
 						'class' => 'project-is-featured',
 						'id' => '',
 					),
-					'message' => 'True or False',
+					'message' => 'Yes or No',
 					'default_value' => 0,
 					'ui' => 1,
 					'ui_on_text' => '',
@@ -201,7 +201,7 @@ function jt_featured_projects() {
 			'label_placement' => 'top',
 			'instruction_placement' => 'label',
 			'hide_on_screen' => '',
-			'active' => 1,
+			'active' => true,
 			'description' => '',
 		));
 
@@ -235,15 +235,17 @@ function featured_projects_loop_homepage(){
 	$featured_projects_title = "Featured Projects";
 
 	if  ( ($featured_projects -> have_posts()) && is_front_page()) {
-		echo '<div class="featured-projects-homepage-wrapper d-block clearboth text-center py-5">';
-			echo '<h3 class="title">' . $featured_projects_title .'</h3>';
+		echo '<div class="featured-projects-homepage-wrapper d-block clearboth text-center">';
+			echo '<div class="featured-projects-inner-wrapper py-5">';
+				echo '<h3 class="title text-white">' . $featured_projects_title .'</h3>';
 
-			while ($featured_projects -> have_posts()) : $featured_projects ->the_post();
+				while ($featured_projects -> have_posts()) : $featured_projects ->the_post();
 				get_template_part( '/includes/featured_projects_homepage_items');
 			endwhile;
 
-			echo '<a class="btn btn-primary mx-auto" href="' . get_permalink( get_page_by_path( 'featured-projects' ) ) . '"><div class="jt">View All Featured Projects</div></a>';
-		echo '</div>';
+				echo '<a class="btn btn-primary mx-auto" href="' . get_permalink( get_page_by_path( 'featured-projects' ) ) . '"><div class="jt">View All Featured Projects</div></a>';
+			echo '</div>'; // end featured-projects-inner-wrapper
+		echo '</div>'; // end featured-projects-homepage-wrapper
 	}
 	/* END - Featured Projects */
 }
@@ -260,7 +262,7 @@ function myplugin_flush_rewrites() {
 
 
 // Custom Taxonomies
-function my_custom_taxonomies() {
+function jt_custom_taxonomies() {
 
 	// Type of Product/Service taxonomy
 	$labels = array(
@@ -290,22 +292,22 @@ function my_custom_taxonomies() {
 
 	// Mood taxonomy (non-hierarchical)
 	$labels = array(
-		'name'                       => 'Moods',
-		'singular_name'              => 'Mood',
-		'search_items'               => 'Search Moods',
-		'popular_items'              => 'Popular Moods',
-		'all_items'                  => 'All Moods',
+		'name'                       => 'JT Custom Tags',
+		'singular_name'              => 'JT Custom Tag',
+		'search_items'               => 'Search JT Custom Tags',
+		'popular_items'              => 'Popular JT Custom Tags',
+		'all_items'                  => 'All JT Custom Tags',
 		'parent_item'                => null,
 		'parent_item_colon'          => null,
-		'edit_item'                  => 'Edit Mood',
-		'update_item'                => 'Update Mood',
-		'add_new_item'               => 'Add New Mood',
-		'new_item_name'              => 'New Mood Name',
-		'separate_items_with_commas' => 'Separate moods with commas',
-		'add_or_remove_items'        => 'Add or remove moods',
-		'choose_from_most_used'      => 'Choose from the most used moods',
-		'not_found'                  => 'No moods found.',
-		'menu_name'                  => 'Moods',
+		'edit_item'                  => 'Edit JT Custom Tag',
+		'update_item'                => 'Update JT Custom Tag',
+		'add_new_item'               => 'Add New JT Custom Tag',
+		'new_item_name'              => 'New JT Custom Tag Name',
+		'separate_items_with_commas' => 'Separate JT Custom Tags with commas',
+		'add_or_remove_items'        => 'Add or remove JT Custom Tags',
+		'choose_from_most_used'      => 'Choose from the most used JT Custom Tags',
+		'not_found'                  => 'No JT Custom Tags found.',
+		'menu_name'                  => 'JT Custom Tags',
 	);
 
 	$args = array(
@@ -315,10 +317,10 @@ function my_custom_taxonomies() {
 		'show_admin_column'     => true,
 		'update_count_callback' => '_update_post_term_count',
 		'query_var'             => true,
-		'rewrite'               => array( 'slug' => 'moods' ),
+		'rewrite'               => array( 'slug' => 'jt-custom-tags' ),
 	);
 
-	register_taxonomy( 'mood', array( 'featured-projects', 'post' ), $args );
+	register_taxonomy( 'jt-custom-tag', array( 'featured-projects', 'post' ), $args );
 }
 
-add_action( 'init', 'my_custom_taxonomies' );
+add_action( 'init', 'jt_custom_taxonomies' );
