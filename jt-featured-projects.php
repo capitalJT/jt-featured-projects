@@ -220,7 +220,7 @@ function featured_projects_loop_homepage(){
 		'post_type'  => 'featured-projects',
 		'posts_per_page' => 3,
 		'orderby' => 'menu_order',
-		'order' => 'ASC',
+		'order' => 'DESC',
 		'meta_query'	=> array(
 			array(
 				'key'	  	=> 'project_is_featured',
