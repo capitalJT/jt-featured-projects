@@ -243,7 +243,7 @@ function featured_projects_loop_homepage(){
 				get_template_part( '/includes/featured_projects_homepage_items');
 			endwhile;
 
-				echo '<a class="btn btn-primary mx-auto" href="' . get_permalink( get_page_by_path( 'featured-projects' ) ) . '"><div class="jt">View All Featured Projects</div></a>';
+				echo '<a class="btn btn-primary mx-auto" href="' . get_permalink( get_page_by_path( 'projects' ) ) . '">View All Projects</a>';
 			echo '</div>'; // end featured-projects-inner-wrapper
 		echo '</div>'; // end featured-projects-homepage-wrapper
 	}
